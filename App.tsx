@@ -7,9 +7,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 export default function App() {
   const  [total,getTotal]=useState();
   const [lStorage,setStorage]=useState(false);
-  const setTotes=(data: SetStateAction<number>)=>{
-    getTotal(data);
-  }
+  // const setTotes=(data: SetStateAction<number>)=>{
+  //   getTotal(data);
+  // }
   // const storeData = async (value: string) => {
   //   try {
   //     <Total totals={setTotes}/>
@@ -20,13 +20,11 @@ export default function App() {
   //   }
   // }
   const getData = async () => {
+    
     try {
-      
       const value = await AsyncStorage.getItem('Balance')
-      console.log(value);
       if(value !== null) {
-        // <Text style={styles.budgetBalance}>${parseInt(value)} asddasdasd</Text>
-        <Total myVal={value}/>
+        <Total myVal={parseInt(value)} myBol={lStorage}/>
         // value previously stored
       }
     } catch(e) {
