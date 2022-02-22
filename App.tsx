@@ -1,13 +1,47 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import Add from './Add';
-import Sub from './Sub';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
+
+import Total from './Total'
+import { useState, useEffect, SetStateAction } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 export default function App() {
+  const  [total,getTotal]=useState();
+  const [lStorage,setStorage]=useState(false);
+  const setTotes=(data: SetStateAction<number>)=>{
+    getTotal(data);
+  }
+  // const storeData = async (value: string) => {
+  //   try {
+  //     <Total totals={setTotes}/>
+  //     value=JSON.stringify(total);
+  //     await AsyncStorage.setItem('Balance', value)
+  //   } catch (e) {
+  //     // saving error
+  //   }
+  // }
+  const getData = async () => {
+    try {
+      
+      const value = await AsyncStorage.getItem('Balance')
+      console.log(value);
+      if(value !== null) {
+        // <Text style={styles.budgetBalance}>${parseInt(value)} asddasdasd</Text>
+        <Total myVal={value}/>
+        // value previously stored
+      }
+    } catch(e) {
+      // error reading value
+    }
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Zachary's Budget App</Text>
-      <Add/>
-      <Sub/>
+      <Text style={styles.budgetBalanceHeader}>Budget Balance</Text>
+      <Total/>
+      <Pressable onPress={()=>getData()}>
+      <Text>Load previous budget</Text>
+      </Pressable>
+
       <StatusBar style="auto" />
     </View>
   );
@@ -25,5 +59,17 @@ const styles = StyleSheet.create({
     top: 30,
     fontSize:20,
     color:"white",
+  },
+  budgetBalanceHeader: {
+    position: 'absolute',
+    top: 90,
+    fontSize:20,
+    color:"black",
+  },
+  budgetBalance: {
+    position: 'absolute',
+    top: 140,
+    fontSize:20,
+    color:"black",
   },
 });

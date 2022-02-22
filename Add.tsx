@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native';
-export default function Add(){
+import Total from './Total';
+export default function Add(props){
     const [add,setAdd]=useState(0);
-    const [number, onChangeNumber] = useState();
+    const [number, onChangeNumber] = useState('');
+    const submit=(data)=>{
+        setAdd(data);
+        onChangeNumber('');
+    }
     return(
         <div>
         <TextInput
@@ -10,9 +15,15 @@ export default function Add(){
         value={number}
         placeholder="Add a budget"
         keyboardType="numeric"
+        onChangeText={onChangeNumber}
       />
-    <Pressable style={styles.myButtons} onPress={()=>setAdd(add+1)}>
+    <Pressable style={styles.myButtons} onPress={()=>submit(parseInt(number))}>
         <Text style={styles.myText}>Add budget</Text>
+        <h1>{add}</h1>
+        {useEffect(()=>{
+        props.addB(add);
+    },[add])}
+        
     </Pressable>
     </div>
     );
