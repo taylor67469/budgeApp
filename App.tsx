@@ -13,20 +13,7 @@ export default function App() {
     console.log(lStorage);
     
 }
-  // const getData = async () => {
-    
-  //   try {
-  //     const value = await AsyncStorage.getItem('Balance')
-  //     if(value !== null) {
-  //       console.log("my value!"+parseInt(value));
-  //       setStorages(parseInt(value));
-  //       <Total myVal={lStorage}/>
-  //       // value previously stored
-  //     }
-  //   } catch(e) {
-  //     // error reading value
-  //   }
-  // }
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Zachary's Budget App</Text>
