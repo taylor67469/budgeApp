@@ -32,19 +32,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   heading: {
-    position: 'absolute',
+    // position: 'absolute',
     top: 30,
     fontSize:20,
     color:"white",
+    padding:"20px"
   },
   budgetBalanceHeader: {
-    position: 'absolute',
+    // position: 'absolute',
     top: 90,
     fontSize:20,
     color:"black",
   },
   budgetBalance: {
-    position: 'absolute',
+    // position: 'absolute',
     top: 140,
     fontSize:20,
     color:"black",

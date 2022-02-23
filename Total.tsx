@@ -68,19 +68,22 @@ export default function Total(){
             <Text>Reset balance</Text>
         </Pressable>
         <Pressable onPress={()=>getData()}>
-      <Text>Load previous budget</Text>
+      <Text style={styles.presser}>Load previous budget</Text>
       </Pressable>     
     </div>
     )
 }
 const styles = StyleSheet.create({
 budgetBalance: {
-    position: 'absolute',
+    // position: 'absolute',
     top: 140,
     fontSize:20,
     color:"black",
+    textAlign:"center",
+    marginLeft:"10px",
   },
   presser:{
-      padding:10
+      padding:10,   
+      marginLeft:"10px",
   }
 });
