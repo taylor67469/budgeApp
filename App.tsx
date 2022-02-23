@@ -6,40 +6,32 @@ import { useState, useEffect, SetStateAction } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 export default function App() {
   const  [total,getTotal]=useState();
-  const [lStorage,setStorage]=useState(false);
-  // const setTotes=(data: SetStateAction<number>)=>{
-  //   getTotal(data);
-  // }
-  // const storeData = async (value: string) => {
+  const [lStorage,setStorage]=useState(0);
+  const [myStorage,setMyStorage]=useState(false);
+  const setStorages=(data: SetStateAction<number>)=>{
+    setStorage(data);
+    console.log(lStorage);
+    
+}
+  // const getData = async () => {
+    
   //   try {
-  //     <Total totals={setTotes}/>
-  //     value=JSON.stringify(total);
-  //     await AsyncStorage.setItem('Balance', value)
-  //   } catch (e) {
-  //     // saving error
+  //     const value = await AsyncStorage.getItem('Balance')
+  //     if(value !== null) {
+  //       console.log("my value!"+parseInt(value));
+  //       setStorages(parseInt(value));
+  //       <Total myVal={lStorage}/>
+  //       // value previously stored
+  //     }
+  //   } catch(e) {
+  //     // error reading value
   //   }
   // }
-  const getData = async () => {
-    
-    try {
-      const value = await AsyncStorage.getItem('Balance')
-      if(value !== null) {
-        <Total myVal={parseInt(value)} myBol={lStorage}/>
-        // value previously stored
-      }
-    } catch(e) {
-      // error reading value
-    }
-  }
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Zachary's Budget App</Text>
       <Text style={styles.budgetBalanceHeader}>Budget Balance</Text>
       <Total/>
-      <Pressable onPress={()=>getData()}>
-      <Text>Load previous budget</Text>
-      </Pressable>
-
       <StatusBar style="auto" />
     </View>
   );

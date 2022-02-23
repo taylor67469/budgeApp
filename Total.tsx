@@ -3,13 +3,14 @@ import { StyleSheet, Text, View, Pressable, TextInput,  } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Sub from './Sub';
 import Add from './Add';
-export default function Total(props){
+export default function Total(){
     const [total,setTotal]=useState(0);
     const [add,setAdd]=useState(0);
     const [sub,setSub]=useState(0);
     const [lStorage,setStorage]=useState(false);
     const [testBol,setBol]=useState();
     const [test,setTest]=useState();
+    let myBol=false;
     const storeData = async (value: string) => {
         try {
           await AsyncStorage.setItem('Balance', value)
@@ -21,6 +22,7 @@ export default function Total(props){
         setTotal(0);
         setAdd(0);
         setSub(0);
+        
     }
     const calculateTotal=()=>{
         setTotal(add-sub);
@@ -36,43 +38,27 @@ export default function Total(props){
         calculateTotal();
         
     },[add,sub]);
-    // useEffect(()=>{
-    //     setTotal(pro)
-        
-    // },[add,sub]);
-    const setStor=(data)=>{
-        setTest(data);
-        console.log("working");
-        
-    }
-    useEffect(()=>{
-        setStor(props.myVal)
-        console.log("asdasdas");
-        setBol(true);
-    },[testBol]);
-    // useEffect(()=>{
-    //     const fetchData = async () => {
-    //         try {
-    //         //   const response = await fetch("https://api.coincap.io/v2/assets/bitcoin")
-    //         //   const result = await response.json()
-    //         //   const bitcoinPrice = (+result?.data?.priceUsd).toFixed(2)
-    //           setTest(props.myBol)
-    //         } catch (error) {
-    //           console.log("error", error)
-    //         }
-    //       }
-    //       fetchData()
-    //     try{
-    //     setTest(props.myBol)
-    //     console.log(props.myBol);
-    // }
-    // catch (error) {
-    //     console.log("error", error)
-    //   }
-    // },[]);
+   
+    const getData = async () => {
+    
+        try {
+          const value = await AsyncStorage.getItem('Balance')
+          if(value !== null) {
+            console.log("my value!"+parseInt(value));
+
+            setTotal(parseInt(value));
+            myBol=true;
+            // value previously stored
+          }
+        } catch(e) {
+          // error reading value
+        }
+      }
+
+    
     return(
     <div>
-        {props.myBol?<Text style={styles.budgetBalance}>${``}</Text>:<Text style={styles.budgetBalance}>${total}</Text>}
+        {myBol?<Text style={styles.budgetBalance}>${``}</Text>:<Text style={styles.budgetBalance}>${total}</Text>}
         <Add addB={setBud}/>
         <Sub addE={setExp}/>
         <Pressable style={styles.presser} onPress={()=>storeData(JSON.stringify(total))}>
@@ -80,7 +66,10 @@ export default function Total(props){
         </Pressable>
         <Pressable style={styles.presser} onPress={()=>resetTotal()}>
             <Text>Reset balance</Text>
-        </Pressable>     
+        </Pressable>
+        <Pressable onPress={()=>getData()}>
+      <Text>Load previous budget</Text>
+      </Pressable>     
     </div>
     )
 }
