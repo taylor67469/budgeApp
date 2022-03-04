@@ -1,5 +1,5 @@
 # budgeApp
-Working on a React Native budgeting application designed for mobile.\
+Working on a React Native budgeting application designed for mobile.
 ## Screenshot
 ![Screenshot](./assets/budgeappphoto.png)
 ## Deployed
